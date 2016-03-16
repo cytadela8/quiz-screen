@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}quit-screen{% endblock %}
+{% block menu %}
+    {{ super() }}
+{% endblock %}
+{% block menu_links %}
+    <a href="/" class="collection-item blue-text">Panel główny</a>
+{% endblock %}
+{% block menu_links_mobile %}
+    <li><a href="/" class="collection-item">Panel główny</a></li>
+{% endblock %}
+{% block dropdown_title %}
+Panel główny
+{% endblock %}
+{% block main %}
+    <div class="row card-panel white" style="padding:0px;">
+        <div class="col center">
+            <div class="card-panel red lighten-2"><h4>Hmm... Próbjesz uzyskać dostęp do czegoś, do czego nie jesteś uprawniony...<br>(WOW! Tak bardzo hacker! WOW! WOW!)</h4> <img class="responsive-img" src="https://cdn2.hubspot.net/hubfs/498921/Blog/Doge_Error_Codes.jpg?t=1455300506486"></div>
+        </div>
+    </div>
+{% endblock %}

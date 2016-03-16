@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}quit-screen{% endblock %}
+{% block menu_links %}
+    <a href="/" class="collection-item active blue">Panel główny</a>
+{% endblock %}
+{% block menu_links_mobile %}
+    <li><a href="/" class="collection-item">Panel główny</a></li>
+{% endblock %}
+{% block dropdown_title %}
+Panel główny
+{% endblock %}
+{% block controller %}playerStatus{% endblock %}
+{% block menu %}
+    {{ super() }}
+{% endblock %}
+{% block main %}
+    <div class="row card-panel white" style="padding:0px;">
+        <div class="col l5 m6 s12">
+            <form method="POST" action="/" class="col s12">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.pytanie_id.label }}
+                        {{ form.pytanie_id }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.pytanie_text.label }}
+                        {{ form.pytanie_text }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.pytanie_czas.label }}
+                        {{ form.pytanie_czas }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.stawka.label }}
+                        {{ form.stawka }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.akt_team.label }}
+                        {{ form.akt_team }}
+                    </div>
+                </div>
+                {% for t in form.teams %}
+                    <div class="row">
+                        <div class="col s3">
+                            {{ t.form.team_id(readonly=true) }}
+                        </div>
+                        <div class="col s3">
+                            {{ t.form.team_name(readonly=true) }}
+                        </div>
+                        <div class="col s6">
+                            {{ t.form.points }}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
