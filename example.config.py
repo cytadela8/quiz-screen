@@ -6,3 +6,5 @@ admin_password = "secret"
 database_uri = 'sqlite:///baza.db'
 secret_key = "very_secret_key_askjdhaejkbdnaqlwmedxawmhe"
 ldap_host = "localhost"
+server_port = 80
+debug = False
