@@ -17,11 +17,12 @@
         <div class="col s12 m12 l12">
             <nav>
                 <div class="nav-wrapper blue">
-                    <a href="#" class="brand-logo center white-text">sMusic</a>
+                    <a href="#" class="brand-logo center white-text">quiz-screen</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         {% if current_user.is_authenticated %}
                             <li>{{ current_user.display_name }}</li>
                             <li><a style="text-decoration:none" href="/admin">Administracja</a></li>
+                            <li><a style="text-decoration:none" href="/logout">Wyloguj</a></li>
                         {% else %}
                             <li><a style="text-decoration:none" href="/login">Zaloguj</a></li>
                         {% endif %}

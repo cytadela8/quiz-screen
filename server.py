@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 from functools import wraps
 import flask
-from flask import request, Response, Flask, render_template, redirect, current_app, session, Markup
+from flask import request, Response, Flask, render_template, redirect, current_app, session, Markup, url_for
 import json
 import config
 from flask_sqlalchemy import SQLAlchemy
@@ -118,7 +118,7 @@ class MyAdminIndexView(AdminIndexView):
         return super(MyAdminIndexView, self).index()
 
 
-admin = Admin(app, name='sMusic', index_view=MyAdminIndexView())
+admin = Admin(app, name='quiz-system', index_view=MyAdminIndexView())
 
 
 class UserAdmin(sqla.ModelView):
@@ -128,8 +128,12 @@ class UserAdmin(sqla.ModelView):
     column_searchable_list = ('login', 'display_name')
 
 
+class PytanieAdmin(sqla.ModelView):
+    form_columns = ['id', 'text']
+
+
 admin.add_view(UserAdmin(User, db.session))
-admin.add_view(sqla.ModelView(Pytanie, db.session))
+admin.add_view(PytanieAdmin(Pytanie, db.session))
 admin.add_view(sqla.ModelView(Team, db.session))
 admin.add_view(sqla.ModelView(DataStore, db.session))
 
@@ -284,7 +288,7 @@ def main():
                     form.pytanie_text.data = quest_object.text
         except TypeError:
             pass
-        form.pytanie_id.data = None
+        form.pytanie_id.data = 0
         store["pytanie"] = form.pytanie_text.data
         store["stawka"] = form.stawka.data
         store["num_akt_drozyny"] = form.akt_team.data
