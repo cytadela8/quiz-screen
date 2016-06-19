@@ -1,5 +1,4 @@
 #-*- coding: utf-8 -*-
-from functools import wraps
 import flask
 from flask import request, Response, Flask, render_template, redirect, current_app, session, Markup, url_for
 import json
@@ -249,6 +248,8 @@ def create_default_user():
         store["num_akt_drozyny"] = 0
     if "czas_na_pytanie" not in datastore.data:
         store["czas_na_pytanie"] = 10
+    if "runda" not in datastore.data:
+        store["runda"] = 1
     datastore.data = json.dumps(store)
     db.session.commit()
 
@@ -267,6 +268,7 @@ class ChangeForm(Form):
     pytanie_id = IntegerField('ID', validators=[Optional()])
     pytanie_text = TextAreaField('TEXT', validators=[Optional()])
     pytanie_czas = IntegerField('Czas')
+    runda = IntegerField('Runda')
     stawka = IntegerField('Stawka')
     teams = FieldList(FormField(TeamForm))
     akt_team = IntegerField('Team id')
@@ -291,6 +293,7 @@ def main():
         form.pytanie_id.data = 0
         store["pytanie"] = form.pytanie_text.data
         store["stawka"] = form.stawka.data
+        store["runda"] = form.runda.data
         store["num_akt_drozyny"] = form.akt_team.data
         store["czas_na_pytanie"] = form.pytanie_czas.data
         for team in form.teams.entries:
@@ -305,6 +308,7 @@ def main():
         form.pytanie_text.data = store["pytanie"]
         form.pytanie_id.data = None
         form.stawka.data = store["stawka"]
+        form.runda.data = store["runda"]
         form.pytanie_czas.data = store["czas_na_pytanie"]
         form.akt_team.data = store["num_akt_drozyny"]
         if len(form.teams.entries) == 0:
@@ -324,6 +328,7 @@ def api_v1_library():
     store = json.loads(DataStore.query.get(1).data)
     print "store", store
     data = {"stawka": store["stawka"],
+            "runda": store["runda"],
             "pytanie": store["pytanie"],
             "num_akt_drozyny": store["num_akt_drozyny"],
             "czas_na_pytanie": store["czas_na_pytanie"],
